@@ -1,0 +1,103 @@
+html,body {
+	height: 90%;
+	font-family: Verdana
+}
+
+.title {
+	padding: 3px;
+	margin: 3px 0px;
+	color: darkgreen;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.heading {
+	padding: 3px;
+	margin: 3px 0px;
+	background-color: #41A317;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#wrapper {
+	text-align: center;
+	height: 70%;
+	width: 700px;
+	margin: 0 auto;
+}
+
+.supports-web-sockets {
+	color: white;
+	background-color: green;
+}
+
+.does-not-support-web-sockets {
+	color: white;
+	background-color: green;
+}
+
+#users-area {
+	height: 100%;
+	text-align: left;
+	padding: 2px 3px;
+	float: left;
+	width: 150px;
+}
+
+#chat-area {
+	height: 100%;
+	text-align: left;
+	padding: 2px 3px;
+	float: left;
+	width: 500px;
+}
+
+#users {
+	height: 100%;
+	background-color: #f5f5f5;
+}
+
+.user {
+	padding: 1px 5px;
+	word-wrap: break-word;
+	font-size: 12px;
+}
+
+#messages {
+	height: 100%;
+	background-color: #f5f5f5;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#chat-textfield {
+	width: 100%;
+	font-size: 16px;
+}
+
+.msg {
+	float: left;
+	font-size: 12px;
+	margin: 0 3px;
+}
+
+.msg-holder {
+	width: 100%;
+}
+
+.msg-timestamp {
+	color: darkred;
+}
+
+.msg-username {
+	color: darkblue;
+	max-width: 120px;
+	word-wrap: break-word;
+}
+
+.msg-content {
+	color: #111;
+	width: 280px;
+	word-wrap: break-word;
+}

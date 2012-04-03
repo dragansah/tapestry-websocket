@@ -1,0 +1,27 @@
+<html t:type="layout" title="Tapestry5 WebSocket Chat Demo" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<div id="wrapper">
+		<div id="websocket-support" />
+		<div style="width: 100%; text-align:left">
+			<img src="${logo}" style="height: 100px; margin-left:45px;" />
+		</div>
+		<div id="users-area">
+			<div class="heading">Users</div>
+			<div id="users">
+				<div t:type="loop" class="user" source="users" value="user">${user}</div>
+			</div>
+			<form>
+				<input type="textfield" id="username-textfield" placeholder="type your username" />
+			</form>
+		</div>
+		<div id="chat-area" style="visibility: hidden">
+			<div class="heading">Chat area</div>
+			<div id="messages" />
+			<form>
+				<input type="text" id="chat-textfield" placeholder="type and press enter to chat" />
+			</form>
+		</div>
+	</div>
+
+</html>
