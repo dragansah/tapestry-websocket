@@ -2,7 +2,7 @@
 <suite name="jettywsdemo Application Test Suite" annotations="1.5">
     <test name="Unit Tests">
         <packages>
-            <package name="com.dragansah.jettywsdemo"/>
+            <package name="com.dragansah.tapestry.websocket"/>
         </packages>
     </test>
 </suite>

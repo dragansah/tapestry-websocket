@@ -1,0 +1,5 @@
+description = "websocket-chat-demo"
+
+dependencies {
+		compile project(':websocket-core')
+}

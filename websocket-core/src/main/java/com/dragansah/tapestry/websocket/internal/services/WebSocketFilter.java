@@ -73,6 +73,8 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 	public void handleComponentEvent(ComponentEventRequestParameters parameters,
 			ComponentRequestHandler handler) throws IOException
 	{
+		System.out.println("handle:"+webSocketFactory.acceptWebSocket(requestGlobals.getHTTPServletRequest(),
+				requestGlobals.getHTTPServletResponse()));
 		boolean websocket = false;
 		if (webSocketFactory.acceptWebSocket(requestGlobals.getHTTPServletRequest(),
 				requestGlobals.getHTTPServletResponse())

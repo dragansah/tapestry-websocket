@@ -1,0 +1,12 @@
+description = "websocket-core"
+
+dependencies {
+		compile "org.eclipse.jetty:jetty-websocket:8.1.2.v20120308"
+		compile "javax.servlet:servlet-api:2.5"
+}
+
+jar {
+	manifest {
+		attributes 'Tapestry-Module-Classes': 'com.dragansah.tapestry.websocket.WebSocketModule'
+	}
+}

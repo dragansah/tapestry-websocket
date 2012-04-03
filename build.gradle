@@ -1,72 +1,70 @@
 description = "tapestry-websocket"
 
-apply plugin: "war"
-apply plugin: "java"
-apply plugin: "jetty"
-apply plugin: "eclipse"
+subprojects {
 
-sourceCompatibility = "1.6"
-targetCompatibility = "1.6"
+	apply plugin: "war"
+	apply plugin: "java"
+	apply plugin: "jetty"
+	apply plugin: "eclipse"
 
-group = "com.dragansah.tapestry"
-version = "1.0-SNAPSHOT"
+	sourceCompatibility = "1.6"
+	targetCompatibility = "1.6"
 
-jettyRun.webAppSourceDirectory = new File("src/test/webapp/")
-jettyRun.httpPort = 8080
-jettyRun.context = "/"
+	group = "com.dragansah.tapestry"
+	version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+	jettyRun.httpPort = 8080
+	jettyRun.contextPath = "/"
 
-    // All things JBoss/Hibernate
-    mavenRepo name: "JBoss", url: "http://repository.jboss.org/nexus/content/groups/public/"
+	repositories {
+		mavenCentral()
 
-    // For stable versions of the tapx libraries
-    mavenRepo name: "HLS", url: "http://howardlewisship.com/repository/"
+		// All things JBoss/Hibernate
+		mavenRepo name: "JBoss", url: "http://repository.jboss.org/nexus/content/groups/public/"
 
-    // For non-stable versions of the tapx libraries
-    mavenRepo name: "HLS Snapshots", url: "http://howardlewisship.com/snapshot-repository/"
+		// For stable versions of the tapx libraries
+		mavenRepo name: "HLS", url: "http://howardlewisship.com/repository/"
 
-    // For access to Apache Staging (Preview) packages
-    mavenRepo name: "Apache Staging", url: "https://repository.apache.org/content/groups/staging"
-}
+		// For non-stable versions of the tapx libraries
+		mavenRepo name: "HLS Snapshots", url: "http://howardlewisship.com/snapshot-repository/"
 
-// This simulates Maven's "provided" scope, until it is officially supported by Gradle
-// See http://jira.codehaus.org/browse/GRADLE-784
+		// For access to Apache Staging (Preview) packages
+		mavenRepo name: "Apache Staging", url: "https://repository.apache.org/content/groups/staging"
+	}
 
-configurations {
-    provided
-}
+	// This simulates Maven's "provided" scope, until it is officially supported by Gradle
+	// See http://jira.codehaus.org/browse/GRADLE-784
 
-sourceSets {
-    main {
-        compileClasspath += configurations.provided
-    }
-    test {
-        compileClasspath += configurations.provided
-        runtimeClasspath += configurations.provided
-    }
-}
+	configurations {
+		provided
+	}
 
-dependencies {
+	sourceSets {
+		main {
+		    compileClasspath += configurations.provided
+		}
+		test {
+		    compileClasspath += configurations.provided
+		    runtimeClasspath += configurations.provided
+		}
+	}
 
-    compile "org.apache.tapestry:tapestry-core:5.3.2"
-    compile "org.eclipse.jetty:jetty-websocket:8.1.2.v20120308"
-    
-    compile "javax.servlet:servlet-api:2.5"
-}
+	dependencies {
+		compile "org.apache.tapestry:tapestry-core:5.3.2"	
+	}
 
-test {
-    useTestNG()
+	test {
+		useTestNG()
 
-    options.suites("src/test/conf/testng.xml")
+		options.suites("src/test/conf/testng.xml")
 
-    systemProperties["tapestry.service-reloading-enabled"] = "false"
-    systemProperties["tapestry.execution-mode"] = "development"
+		systemProperties["tapestry.service-reloading-enabled"] = "false"
+		systemProperties["tapestry.execution-mode"] = "development"
 
-    maxHeapSize = "600M"
+		maxHeapSize = "600M"
 
-    jvmArgs("-XX:MaxPermSize=256M")
+		jvmArgs("-XX:MaxPermSize=256M")
 
-    enableAssertions = true
+		enableAssertions = true
+	}
 }
