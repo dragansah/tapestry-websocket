@@ -75,7 +75,6 @@ public class Index
 	{
 		chatService.login(username);
 		return new JSONObject("loginUser", username).toCompactString();
-
 	}
 
 	@Log

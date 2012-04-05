@@ -73,8 +73,6 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 	public void handleComponentEvent(ComponentEventRequestParameters parameters,
 			ComponentRequestHandler handler) throws IOException
 	{
-		System.out.println("handle:"+webSocketFactory.acceptWebSocket(requestGlobals.getHTTPServletRequest(),
-				requestGlobals.getHTTPServletResponse()));
 		boolean websocket = false;
 		if (webSocketFactory.acceptWebSocket(requestGlobals.getHTTPServletRequest(),
 				requestGlobals.getHTTPServletResponse())
@@ -96,7 +94,7 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 		boolean websocket = false;
 		if (webSocketFactory.acceptWebSocket(requestGlobals.getHTTPServletRequest(),
 				requestGlobals.getHTTPServletResponse())
-				|| requestGlobals.getResponse().isCommitted())
+				|| requestGlobals.getHTTPServletResponse().isCommitted())
 			websocket = true;
 
 		if (websocket)
@@ -170,11 +168,7 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 			{
 				this.connection = connection;
 				storeRequest(request);
-				String path = request.getServletPath();
-				if (path.equals("/"))
-					path = "/index"; // hack for index pages
-				webSocketConnectionManager.saveConnection(requestGlobals.getRequest().getPath(),
-						connection);
+				webSocketConnectionManager.saveConnection(getPath(), connection);
 				triggerEvent("open");
 			}
 
@@ -190,8 +184,7 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 			{
 				storeRequest(request);
 				triggerEvent("close");
-				webSocketConnectionManager.removeConnection(requestGlobals.getRequest().getPath(),
-						connection);
+				webSocketConnectionManager.removeConnection(getPath(), connection);
 			}
 
 			private void storeRequest(final HttpServletRequest request)
@@ -209,10 +202,7 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 					// handlers can use it if needed. The connection may be exposed as a service
 					// (best as a shadow service) in the future.
 					environment.push(Connection.class, connection);
-					String path = requestGlobals.getRequest().getPath();
-					if (path.equals("/"))
-						path = "/index"; // hack for index pages
-					String requestPath = String.format("%s:%s", path, data);
+					String requestPath = String.format("%s:%s", getPath(), data);
 					ComponentEventRequestParameters params = linkDecoder
 							.decodeComponentEventRequest(requestPath);
 					if (params != null)
@@ -226,6 +216,16 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 				{
 					environment.pop(Connection.class);
 				}
+			}
+
+			private String getPath()
+			{
+				String path = requestGlobals.getRequest().getPath();
+				if (path.equals(""))
+					path = "/";
+				if (path.equals("/"))
+					path = "/index"; // hack for index pages
+				return path;
 			}
 		};
 	}

@@ -2,4 +2,5 @@ description = "websocket-chat-demo"
 
 dependencies {
 		compile project(':websocket-core')
+		compile "org.eclipse.jetty.aggregate:jetty-server:8.1.2.v20120308"
 }

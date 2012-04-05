@@ -113,8 +113,12 @@ public class WebSocketModule
 				BroadcastPathInfo broadcast = environment.peek(BroadcastPathInfo.class);
 				if (broadcast != null)
 				{
-					final String path = broadcast.path.equals("") ? request.getPath()
+					String path = broadcast.path.equals("") ? request.getPath()
 							: broadcast.path;
+					if (path.equals(""))
+						path = "/";
+					if (path.equals("/"))
+						path = "/index"; // hack for index pages
 					for (Connection connection : connectionManager.getConnections(path))
 					{
 						try
