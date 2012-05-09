@@ -202,7 +202,9 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 					// handlers can use it if needed. The connection may be exposed as a service
 					// (best as a shadow service) in the future.
 					environment.push(Connection.class, connection);
-					String requestPath = String.format("%s:%s", getPath(), data);
+					final String requestPath = String.format("%s:%s", getPath(), data);
+					environment.push(CurrentPathInfo.class, new CurrentPathInfo(requestPath));
+
 					ComponentEventRequestParameters params = linkDecoder
 							.decodeComponentEventRequest(requestPath);
 					if (params != null)
@@ -215,6 +217,7 @@ public class WebSocketFilter implements ComponentRequestFilter, WebSocketFactory
 				finally
 				{
 					environment.pop(Connection.class);
+					environment.pop(CurrentPathInfo.class);
 				}
 			}
 
